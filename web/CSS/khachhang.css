@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #2f3640;
+    margin-bottom: 20px;
+}
+
+form#formKH {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+form#formKH input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    border: 1px solid #dcdde1;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+form#formKH input[type="submit"], form#formKH button {
+    padding: 8px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #487eb0;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+form#formKH input[type="submit"]:hover:not(:disabled),
+form#formKH button:hover:not(:disabled) {
+    background-color: #40739e;
+}
+
+form#formKH button:disabled {
+    background-color: #dcdde1;
+    cursor: not-allowed;
+}
+
+#reset {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e84118;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#reset:hover {
+    background-color: #c23616;
+}
+
+table#bangKH {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-top: 10px;
+}
+
+table#bangKH th, table#bangKH td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #dcdde1;
+}
+
+table#bangKH th {
+    background-color: #40739e;
+    color: white;
+}
+
+table#bangKH tr:hover {
+    background-color: #f1f2f6;
+}
+
+table#bangKH button {
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 5px;
+}
+
+table#bangKH button:nth-child(1) { /* Xóa */
+    background-color: #e84118;
+    color: white;
+}
+
+table#bangKH button:nth-child(1):hover {
+    background-color: #c23616;
+}
+
+table#bangKH button:nth-child(2) { /* Sửa */
+    background-color: #44bd32;
+    color: white;
+}
+
+table#bangKH button:nth-child(2):hover {
+    background-color: #4cd137;
+}
+
+#errorMa {
+    font-size: 13px;
+    height: 16px; /* giữ chỗ để label không nhảy */
+}

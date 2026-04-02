@@ -49,84 +49,8 @@
         </c:forEach>
     </tbody>
 </table>
-<script>
-    document.getElementById("themsanphamform").addEventListener("submit", function(e) {
-        e.preventDefault();;
-        
-        let data = new URLSearchParams();
-        data.append("action", "them");  
-        data.append("ma", document.querySelector('input[name="ma"]').value);
-        data.append("ten", document.querySelector('input[name="ten"]').value);
-        data.append("gia", document.querySelector('input[name="gia"]').value);
-        data.append("soluong", document.querySelector('input[name="soluong"]').value);
-
-        fetch("${pageContext.request.contextPath}/themsanpham", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: data
-        })
-        .then(response => response.json()) // Servlet trả JSON
-        .then(data => {
-            // data = {ten: "...", gia: 123}
-            let tbody = document.querySelector("#bangSanPham tbody");
-
-            // Tạo 1 row mới
-            let row = tbody.insertRow(); // insert vào cuối table
-            let cellMa = row.insertCell(0);
-            let cellTen = row.insertCell(1);
-            let cellGia = row.insertCell(2);
-            let cellSL  = row.insertCell(3);
-            let cellAction = row.insertCell(4);
-            // STT = số row hiện tại
-            cellMa.innerText = data.ma;
-            cellTen.innerText = data.ten;
-            cellGia.innerText = data.gia;
-            cellSL.innerText = data.soluong;
-            cellAction.innerHTML = `
-                <button onclick="xoa('${data.ma}', this)">Xóa</button>
-                <button onclick="suaRow(this)">Sửa</button>
-            `;
-            this.reset(); // reset form
-        });
-    });
-    function xoa(ma, btn) {
-        if (!confirm("Xóa?")) return;
-
-        fetch("sanpham?action=xoa&ma=" + ma)
-        .then(res => res.json())
-        .then(() => {
-            btn.closest("tr").remove();
-        });
-    }
-    function suaRow(btn) {
-        let row = btn.closest("tr");
-
-        let ma = row.cells[0].innerText;
-        let ten = prompt("Tên mới:", row.cells[1].innerText);
-        let gia = prompt("Giá mới:", row.cells[2].innerText);
-        let sl = prompt("SL mới:", row.cells[3].innerText);
-
-        let data = new URLSearchParams();
-        data.append("action", "sua");
-        data.append("ma", ma);
-        data.append("ten", ten);
-        data.append("gia", gia);
-        data.append("soluong", sl);
-
-        fetch("sanpham", {
-            method: "POST",
-            headers: {"Content-Type": "application/x-www-form-urlencoded"},
-            body: data
-        })
-        .then(res => res.json())
-        .then(sp => {
-            row.cells[1].innerText = sp.ten;
-            row.cells[2].innerText = sp.gia;
-            row.cells[3].innerText = sp.soluong;
-        });
-    }
+<script src="${pageContext.request.contextPath}/JS/sanphamjs.js">
+    
 </script>
 </body>
 </html>

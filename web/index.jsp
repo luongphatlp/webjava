@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Nhập tên bạn vô đây!!!</h1>
-        <form action="${pageContext.request.contextPath}/sanpham" method="get">
+        <form action="${pageContext.request.contextPath}/khachhang" method="get">
             <button type="submit">Gửi</button>
         </form>
     </body>
