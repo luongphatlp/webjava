@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+h1 {
+    text-align: center;
+    color: #333;
+}
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+th {
+    background-color: #007BFF;
+    color: #fff;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:hover {
+    background-color: #cce5ff;
+}
+
+/* Nút hành động */
+a.btn-add, a.btn-edit, a.btn-delete {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin: 0 2px;
+}
+
+a.btn-add {
+    background-color: #28a745;
+}
+
+a.btn-edit {
+    background-color: #ffc107;
+}
+
+a.btn-delete {
+    background-color: #dc3545;
+}
