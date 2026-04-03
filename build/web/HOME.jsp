@@ -14,7 +14,7 @@
         <div class="btn-container">
             <form action="NhaCungCapUI" method="GET" class="search-container">
                 <input type="text" name="txtSearch" value="${param.txtSearch}" 
-                       placeholder="Tìm mã, tên, địa chỉ hoặc SĐT...">
+                       placeholder="Tìm mã, tên, địa chỉ hoặc SĐT..." autocomplete="off">
                 <button type="submit" class="btn-search">Tìm kiếm</button>
             </form>
 
@@ -37,7 +37,7 @@
                 <tbody>
                     <c:forEach var="ncc" items="${ds}">
                         <tr>
-                            <td style="font-weight: 600; color: #4f46e5;">${ncc.maNCC}</td>
+                            <td style="font-weight: 700; color: var(--primary);">${ncc.maNCC}</td>
                             <td>${ncc.tenNCC}</td>
                             <td style="color: #6b7280;">${ncc.diaChi}</td>
                             <td>${ncc.soDienThoai}</td>
@@ -46,9 +46,11 @@
                                         onclick="openEditModal('${ncc.maNCC}', '${ncc.tenNCC}', '${ncc.diaChi}', '${ncc.soDienThoai}')">
                                     <img src="icon/edit.png" alt="Edit">
                                 </button>
-                                <a href="DeleteNCC?id=${ncc.maNCC}" class="btn-action" 
-                                   onclick="return confirm('Bạn có chắc chắn muốn xóa nhà cung cấp này?')">
+                                <a href="DeleteNCC?id=${ncc.maNCC}" onclick="return confirm('...')"></a>
+                                <a href="javascript:void(0)" class="btn-action" 
+                                   onclick="return confirmDelete('DeleteNCC?id=${ncc.maNCC}')">
                                     <img src="icon/delete (1).png" alt="Delete">
+                                </a>
                                 </a>
                             </td>
                         </tr>
@@ -59,19 +61,32 @@
 
         <div id="addModal" class="modal">
             <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>THÊM NHÀ CUNG CẤP MỚI</h2>
-                <hr style="border: 0.5px solid #eee; margin: 15px 0;">
+                <div class="modal-header">
+                    <span class="close-modern" onclick="closeModal()">&times;</span>
+                    <h2>Thêm đối tác mới</h2>
+                </div>
                 <form action="AddUI" method="POST">
-                    <table class="form-table">
-                        <tr><td>Mã NCC *</td><td><input type="text" name="maNCC" placeholder="VD: NCC001" required></td></tr>
-                        <tr><td>Tên NCC *</td><td><input type="text" name="tenNCC" placeholder="Tên công ty/đại lý" required></td></tr>
-                        <tr><td>Địa Chỉ</td><td><input type="text" name="diaChi" placeholder="Địa chỉ trụ sở"></td></tr>
-                        <tr><td>SĐT *</td><td><input type="text" name="soDienThoai" placeholder="Số điện thoại liên hệ" required></td></tr>
-                    </table>
-                    <div style="text-align: center; margin-top: 25px; display: flex; gap: 10px;">
-                        <button type="submit" class="btn-save" style="flex: 2;">Lưu thông tin</button>
-                        <button type="button" class="btn-cancel" onclick="closeModal()" style="flex: 1;">Hủy</button>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Mã Nhà Cung Cấp</label>
+                            <input type="text" name="maNCC" placeholder="Ví dụ: NCC001" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên Nhà Cung Cấp</label>
+                            <input type="text" name="tenNCC" placeholder="Nhập tên công ty..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa Chỉ</label>
+                            <input type="text" name="diaChi" placeholder="Trụ sở chính...">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Số Điện Thoại</label>
+                            <input type="text" name="soDienThoai" placeholder="Ví dụ: 090xxxxxxx" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-save-modern">Xác nhận thêm</button>
+                        <button type="button" class="btn-cancel-modern" onclick="closeModal()">Hủy</button>
                     </div>
                 </form>
             </div>
@@ -79,19 +94,32 @@
 
         <div id="editModal" class="modal">
             <div class="modal-content">
-                <span class="close" onclick="closeEditModal()">&times;</span>
-                <h2>SỬA THÔNG TIN ĐỐI TÁC</h2>
-                <hr style="border: 0.5px solid #eee; margin: 15px 0;">
+                <div class="modal-header">
+                    <span class="close-modern" onclick="closeEditModal()">&times;</span>
+                    <h2>Cập nhật thông tin</h2>
+                </div>
                 <form action="EditNCC" method="POST">
-                    <table class="form-table">
-                        <tr><td>Mã NCC</td><td><input type="text" id="edit_ma" name="maNCC" readonly style="background: #f3f4f6; color: #6b7280;"></td></tr>
-                        <tr><td>Tên NCC *</td><td><input type="text" id="edit_ten" name="tenNCC" required></td></tr>
-                        <tr><td>Địa Chỉ</td><td><input type="text" id="edit_dc" name="diaChi"></td></tr>
-                        <tr><td>SĐT *</td><td><input type="text" id="edit_sdt" name="soDienThoai" required></td></tr>
-                    </table>
-                    <div style="text-align: center; margin-top: 25px; display: flex; gap: 10px;">
-                        <button type="submit" class="btn-save" style="flex: 2;">Cập nhật dữ liệu</button>
-                        <button type="button" class="btn-cancel" onclick="closeEditModal()" style="flex: 1;">Hủy</button>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Mã NCC (Không thể sửa)</label>
+                            <input type="text" id="edit_ma" name="maNCC" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên Nhà Cung Cấp</label>
+                            <input type="text" id="edit_ten" name="tenNCC" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa Chỉ</label>
+                            <input type="text" id="edit_dc" name="diaChi">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Số Điện Thoạ i</label>
+                            <input type="text" id="edit_sdt" name="soDienThoai" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-save-modern">Lưu thay đổi</button>
+                        <button type="button" class="btn-cancel-modern" onclick="closeEditModal()">Hủy</button>
                     </div>
                 </form>
             </div>
@@ -100,19 +128,32 @@
         <div id="toast"></div>
         <script src="${pageContext.request.contextPath}/JS/script.js"></script>
         <script>
-                            window.onload = function () {
+                    window.onload = function () {
             <%
-            String msg = (String) session.getAttribute("message");
-            String err = (String) session.getAttribute("error");
-            if (msg != null) {
+                String msg = (String) session.getAttribute("message");
+                String err = (String) session.getAttribute("error");
+                if (msg != null) {
             %>
-                                showToast("<%= msg%>", "success");
+                        showToast("<%= msg%>", "success");
             <% session.removeAttribute("message"); %>
             <% } else if (err != null) {%>
-                                showToast("<%= err%>", "error");
+                        showToast("<%= err%>", "error");
             <% session.removeAttribute("error"); %>
             <% }%>
-                            };
+                    };
         </script>
+        <div id="confirmModal" class="modal">
+            <div class="modal-content" style="width: 380px; text-align: center; padding: 40px 30px;">
+                <div style="font-size: 50px; color: #ef4444; margin-bottom: 20px;">⚠️</div>
+                <h2 style="margin-bottom: 10px; font-size: 1.4rem;">Xác nhận xóa?</h2>
+                <p style="color: #64748b; margin-bottom: 30px; line-height: 1.5;">
+                    Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa đối tác này không?
+                </p>
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" id="btnConfirmDelete" class="btn-save" style="background: #ef4444; flex: 1; border: none; cursor: pointer;">Xóa ngay</button>
+                    <button onclick="closeConfirmModal()" class="btn-cancel" style="flex: 1;">Hủy bỏ</button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

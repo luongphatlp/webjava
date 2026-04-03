@@ -59,3 +59,36 @@ function showToast(message, type = 'success') {
         toast.className = toast.className.replace("show", "");
     }, 2400); 
 }
+
+let currentDeleteUrl = ""; // Biến lưu trữ link xóa
+
+function confirmDelete(url) {
+    currentDeleteUrl = url; // Gán URL cần xóa vào biến
+    const modal = document.getElementById("confirmModal");
+    modal.style.display = "block";
+    return false;
+}
+
+function closeConfirmModal() {
+    document.getElementById("confirmModal").style.display = "none";
+}
+
+// Đợi DOM tải xong mới gán sự kiện cho nút bấm
+document.addEventListener("DOMContentLoaded", function() {
+    const btnConfirm = document.getElementById("btnConfirmDelete");
+    if(btnConfirm) {
+        btnConfirm.onclick = function() {
+            if (currentDeleteUrl !== "") {
+                window.location.href = currentDeleteUrl; // Chuyển hướng để xóa
+            }
+        };
+    }
+    
+    // Đóng modal khi bấm ra ngoài vùng trắng
+    window.onclick = function(event) {
+        const modal = document.getElementById("confirmModal");
+        if (event.target == modal) {
+            closeConfirmModal();
+        }
+    };
+});
